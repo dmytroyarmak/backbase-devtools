@@ -1,9 +1,26 @@
 <html>
 <head>
-    <script type="text/javascript" src="vendor/xmlToJSON.js"></script>
+    <script type="text/javascript" src="vendor/angular.js"></script>
+    <script type="text/javascript" src="vendor/angular-tree-control.js"></script>
+    <script src="app.js"></script>
+
     <script src="panel.js"></script>
+
+    <script type="text/javascript" src="vendor/xmlToJSON.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/tree-control.css">
 </head>
-<body>
-    <h2>Backbase!!!</h2>
+<body ng-app="devTool">
+<div ng-controller="ElementsCtrl">
+    <!-- as a Dom element -->
+    <treecontrol class="tree-light"
+                 expanded-nodes="true"
+                 tree-model="dataForTheTree"
+                 options="treeOptions"
+                 on-selection="showSelected(node)"
+                 selected-node="node1">
+        employee: {{node.name}} age {{node.age}}
+    </treecontrol>
+ </div>
 </body>
 </html>
