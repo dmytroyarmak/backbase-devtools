@@ -33,11 +33,9 @@ angular.module('devTool', ['treeControl'])
             [getComponentsTree(b$.portal.portalModel.firstChild.firstChild.firstChild)];
         `;
 
-        var service = {
+        return {
             getPageTree: getPageTree
         };
-
-        return service;
 
         /////////
 
@@ -71,15 +69,18 @@ angular.module('devTool', ['treeControl'])
         };
 
         $scope.highlightElement = function (item) {
-            console.log('Clicked...');
             chrome.devtools.inspectedWindow.eval(`
                 var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect()
                 var newEl = document.getElementById('ivo-bobul') || document.createElement('div');
                 newEl.id = 'ivo-bobul';
                 for (item in elementPostion) {
-                    newEl.style[item] = elementPostion[item] + 'px';
+                    if (item === 'top') {
+                        newEl.style[item] = document.body.scrollTop + elementPostion[item] + 'px';
+                    } else {
+                        newEl.style[item] = elementPostion[item] + 'px';
+                    }
                 }
-                newEl.style['z-Index'] = 100500;
+                newEl.style['z-index'] = 100500;
                 newEl.style['position'] = 'absolute';
                 newEl.style['background'] = 'red';
                 newEl.style['opacity'] = '0.3';
