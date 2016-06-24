@@ -62,12 +62,29 @@ angular.module('devTool', ['treeControl'])
         });
 
         $scope.setCurrentItem = function (item) {
-            console.log('Item....', item);
             $scope.currentItem = item;
+            $scope.highlightElement(item);
         };
 
-        $scope.selectElement = function(item) {
-            chrome.devtools.inspectedWindow.eval("inspect(document.querySelector('[data-pid=\""+item.name+"\"]'))")
+        $scope.selectElement = function (item) {
+            chrome.devtools.inspectedWindow.eval("inspect(document.querySelector('[data-pid=\"" + item.name + "\"]'))")
+        };
+
+        $scope.highlightElement = function (item) {
+            console.log('Clicked...');
+            chrome.devtools.inspectedWindow.eval(`
+                var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect()
+                var newEl = document.getElementById('ivo-bobul') || document.createElement('div');
+                newEl.id = 'ivo-bobul';
+                for (item in elementPostion) {
+                    newEl.style[item] = elementPostion[item] + 'px';
+                }
+                newEl.style['z-Index'] = 100500;
+                newEl.style['position'] = 'absolute';
+                newEl.style['background'] = 'red';
+                newEl.style['opacity'] = '0.3';
+                document.body.appendChild(newEl);
+            `)
         };
 
         $scope.treeOptions = {

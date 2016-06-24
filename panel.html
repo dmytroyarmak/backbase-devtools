@@ -16,7 +16,7 @@
                      tree-model="pageTree"
                      options="treeOptions"
                      on-selection="setCurrentItem(node)">
-            {{node.type}}: {{node.name}}
+            {{node.type}}: {{node.name}} <button ng-click="selectElement(node)"> elements </button>
         </treecontrol>
     </div>
     <div class="settings" ng-if="currentItem">
