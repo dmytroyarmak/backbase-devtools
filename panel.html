@@ -21,44 +21,76 @@
     </div>
     <div class="settings" ng-if="currentItem">
         <div class="details">
-            <h4>Details</h4>
-            <dl>
-                <dt>Name:</dt>
-                <dd>{{currentItem.name}}</dd>
-                <dt>Type:</dt>
-                <dd>{{currentItem.type}}</dd>
-                <dt>Parent:</dt>
-                <dd>{{currentItem.parent}}</dd>
-                <dt>Context Item Name:</dt>
-                <dd>{{currentItem.contextItemName}}</dd>
-                <dt>Extended Item Name:</dt>
-                <dd>{{currentItem.extendedItemName}}</dd>
-            </dl>
+            <div class="sidebar-pane-title" ng-class="{expanded: expanded.details}" ng-click="expanded.details = !expanded.details">Details</div>
+            <div class="sidebar-pane-content" ng-if="expanded.details">
+                <div class="preferences-list">
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Name:</div>
+                        <div class="preference-value">{{currentItem.name}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Type:</div>
+                        <div class="preference-value">{{currentItem.type}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Parent:</div>
+                        <div class="preference-value">{{currentItem.parent}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Context:</div>
+                        <div class="preference-value">{{currentItem.contextItemName}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Extended:</div>
+                        <div class="preference-value">{{currentItem.extendedItemName}}</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="preferences">
-            <h4>Preferences</h4>
-            <div ng-repeat="preference in currentItem.preferences">
-                <dl>
-                    <dt>Name: </dt>
-                    <dd>{{preference.name}}</dd>
-                    <dt>Label: </dt>
-                    <dd>{{preference.label}}</dd>
-                    <dt>Value: </dt>
-                    <dd>{{preference.value}}</dd>
-                    <dt>View Hint: </dt>
-                    <dd>{{preference.viewHint}}</dd>
-                </dl>
+            <div class="sidebar-pane-title" ng-class="{expanded: expanded.preferences}" ng-click="expanded.preferences = !expanded.preferences">Preferences</div>
+            <div class="sidebar-pane-content" ng-if="expanded.preferences">
+                <div class="preferences-list" ng-repeat="preference in currentItem.preferences">
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Name: </div>
+                        <div class="preference-value">{{preference.name}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Label: </div>
+                        <div class="preference-value">{{preference.label}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Value: </div>
+                        <div class="preference-value">{{preference.value}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">View Hint: </div>
+                        <div class="preference-value">{{preference.viewHint}}</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="tags" ng-show="currentItem.tags.length !== 0">
-            <h4>Tags</h4>
-            <div ng-repeat="tag in currentItem.tags">
-                <dl>
-                    <dt>Name: </dt>
-                    <dd>{{tag.name}}</dd>
-                    <dt>Type: </dt>
-                    <dd>{{tag.type}}</dd>
-                </dl>
+            <div class="sidebar-pane-title" ng-class="{expanded: expanded.tags}" ng-click="expanded.tags = !expanded.tags">Tags</div>
+            <div class="sidebar-pane-content" ng-if="expanded.tags">
+                <div class="preferences-list" ng-repeat="tag in currentItem.tags">
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Name: </div>
+                        <div class="preference-value">{{tag.name}}</div>
+                    </div>
+
+                    <div class="preferences-list-item">
+                        <div class="preference-name">Type:</div>
+                        <div class="preference-value">{{tag.type}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
