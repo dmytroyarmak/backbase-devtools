@@ -12,16 +12,15 @@ chrome.devtools.panels.elements.createSidebarPane('Backbase Item Model', functio
         var dataList = ['contextItemName','extendedItemName','name','securityProfile'];
         var elm, pref;
         var obj = {};
-        var errorMSg = {massage : 'This element do not have a widget content'};
+        var errorMSg = {message : 'This element do not have a widget content'};
         obj.preference = {};
 
         if ($0.closest("[data-pid]") == null) {
             errorMSg;
         } else {
-
             elm = b$.portal.portalModel.all[$0.closest("[data-pid]").attributes['data-pid'].value];
             pref = elm.attributes;
-            
+
             // get preference
             for (key in pref) {
                 if (propertyList.indexOf(pref[key].localName) > -1 ){
