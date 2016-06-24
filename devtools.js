@@ -7,10 +7,9 @@ chrome.devtools.panels.create('Backbase', 'backbase.png', 'panel.html', function
 chrome.devtools.panels.elements.createSidebarPane('Backbase Item Model', function(sidebar) {
 
     var getInfo = function (){
-       // var elm = b$.portal.portalModel.all[$0.attributes['data-pid'].value];
         var propertyList = ['Description','TemplateName','templateUrl','title','version'];
         var dataList = ['contextItemName','extendedItemName','name','securityProfile'];
-        var elm, pref;
+        var elm, pref, key;
         var obj = {};
         var errorMSg = {message : 'This element do not have a widget content'};
         obj.preference = {};
