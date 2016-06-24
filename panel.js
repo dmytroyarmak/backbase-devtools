@@ -87,7 +87,7 @@ angular.module('devTool', ['treeControl'])
             }
             chrome.devtools.inspectedWindow.eval(`
                 var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect();
-                window.scroll(0, elementPostion.top);
+                window.scroll(0, elementPostion.top + document.body.scrollTop);
             `);
         };
 
