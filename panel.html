@@ -16,7 +16,8 @@
                      tree-model="pageTree"
                      options="treeOptions"
                      on-selection="setCurrentItem(node)">
-            <span ng-mouseleave="highlightElement(currentItem)" ng-mouseover="highlightElement(node)">{{node.type}}: {{node.name}} </span><button ng-click="selectElement(node)"> elements </button>
+            <span ng-mouseleave="highlightElement(currentItem)" ng-mouseover="highlightElement(node)">{{node.type}}: {{node.name}} </span>
+            <button ng-click="scrollToElement(node, $event)"> scroll </button><button ng-click="selectElement(node)"> elements </button>
         </treecontrol>
     </div>
     <div class="settings" ng-if="currentItem">

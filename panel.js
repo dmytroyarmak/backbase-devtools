@@ -81,6 +81,16 @@ angular.module('devTool', ['treeControl'])
             chrome.devtools.inspectedWindow.eval("inspect(document.querySelector('[data-pid=\"" + item.name + "\"]'))")
         };
 
+        $scope.scrollToElement = function (item, $event) {
+            if (item === $scope.currentItem) {
+                $event.stopPropagation();
+            }
+            chrome.devtools.inspectedWindow.eval(`
+                var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect();
+                window.scroll(0, elementPostion.top);
+            `);
+        };
+
         $scope.highlightElement = function (item) {
             chrome.devtools.inspectedWindow.eval(`
                 var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect()
