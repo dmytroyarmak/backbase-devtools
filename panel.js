@@ -1,16 +1,50 @@
 angular.module('devTool', ['treeControl'])
     .factory('portalModel', function($q) {
+        var GET_PAGE_TREE_EXPRESSION = `
+            function getComponentsTree(node) {
+                return {
+                    name: node.name,
+                    type: node.tagName,
+                    parent: node.parentItemName ,
+                    contextItemName: node.contextItemName,
+                    extendedItemName: node.extendedItemName,
+
+                    preferences: node.preferences.array.map(formatItemPreference),
+                    tags: node.tags.map(formatItemTag),
+                    children: node.childNodes.map(getComponentsTree)
+                };
+            }
+
+            function formatItemPreference(preference) {
+                return {
+                    name: preference.name,
+                    label: preference.label,
+                    value: preference.value,
+                    viewHint: preference.viewHint
+                }
+            }
+
+            function formatItemTag(tag) {
+                return {
+                    name: tag.value,
+                    type: tag.type
+                }
+            }
+
+            [getComponentsTree(b$.portal.portalModel.firstChild.firstChild.firstChild)];
+        `;
+
         var service = {
-            getFormatedPageTree: getFormatedPageTree
+            getPageTree: getPageTree
         };
 
         return service;
 
         /////////
 
-        function getPageModelXml () {
+        function getPageTree() {
             return $q(function(resolve, reject) {
-                chrome.devtools.inspectedWindow.eval('b$.portal.portalModel.toXML()', function(result, isException) {
+                chrome.devtools.inspectedWindow.eval(GET_PAGE_TREE_EXPRESSION, function(result, isException) {
                     if (isException) {
                         reject(result)
                     } else {
@@ -19,25 +53,18 @@ angular.module('devTool', ['treeControl'])
                 });
             });
         }
-
-        function getFormatedPageTree() {
-            return getPageModelXml()
-                .then(convertToJSON)
-                .then(formatPageTree);
-        }
-
-        function convertToJSON(xml) {
-            return xmlToJSON.parseString(xml);
-        }
-
-        function formatPageTree(pageTree) {
-            return pageTree;
-        }
     })
     .controller('ElementsCtrl', function ($scope, portalModel) {
-        portalModel.getFormatedPageTree().then(function(pageTree) {
-            console.log('pageTree', pageTree);
+        $scope.currentItem = null;
+        $scope.pageTree = [];
+
+        portalModel.getPageTree().then(function(pageTree) {
+            $scope.pageTree = pageTree;
         });
+
+        $scope.setCurrentItem = function(item) {
+            $scope.currentItem = item;
+        };
 
         $scope.treeOptions = {
             nodeChildren: "children",
@@ -53,30 +80,4 @@ angular.module('devTool', ['treeControl'])
                 labelSelected: "a8"
             }
         };
-        $scope.dataForTheTree =
-            [
-                {
-                    "name": "Joe",
-                    "age": "21",
-                    "children": [
-                        {
-                            "name": "Smith",
-                            "age": "42",
-                            "children": []
-                        },
-                        {
-                        "name": "Gary", "age": "21", "children": [
-                        {
-                            "name": "Jenifer", "age": "23", "children": [
-                            {"name": "Dani", "age": "32", "children": []},
-                            {"name": "Max", "age": "34", "children": []}
-                        ]
-                        }
-                    ]
-                    }
-                ]
-                },
-                {"name": "Albert", "age": "33", "children": []},
-                {"name": "Ron", "age": "29", "children": []}
-            ];
     });

@@ -10,14 +10,12 @@
 </head>
 <body ng-app="devTool">
 <div ng-controller="ElementsCtrl">
-    <!-- as a Dom element -->
     <treecontrol class="tree-light"
                  expanded-nodes="true"
-                 tree-model="dataForTheTree"
+                 tree-model="pageTree"
                  options="treeOptions"
-                 on-selection="showSelected(node)"
-                 selected-node="node1">
-        employee: {{node.name}} age {{node.age}}
+                 on-selection="showItemPreferences(node)">
+        {{node.type}}: {{node.name}}
     </treecontrol>
  </div>
 </body>
