@@ -1,0 +1,12 @@
+{
+  "name": "Backbase Developer Tools",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "An extension that allows inspection of Backbase Portal in Chrome Developer Tools",
+  "devtools_page": "devtools.html",
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}
