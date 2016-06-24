@@ -1,7 +1,11 @@
 console.log('devtools.js');
 
 chrome.devtools.panels.create('Backbase', 'backbase.png', 'panel.html', function(panel) {
-    console.log('Panel created', panel);
+    panel.onHidden.addListener(function() {
+        chrome.devtools.inspectedWindow.eval(`
+                document.body.removeChild(document.getElementById('ivo-bobul'));
+            `)
+    });
 });
 
 chrome.devtools.panels.elements.createSidebarPane('Backbase Item Model', function(sidebar) {

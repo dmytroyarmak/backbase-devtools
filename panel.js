@@ -54,9 +54,22 @@ angular.module('devTool', ['treeControl'])
     .controller('ElementsCtrl', function ($scope, portalModel) {
         $scope.currentItem = null;
         $scope.pageTree = [];
+        $scope.expandedNodes = [];
+
+
+        function getExpanded(node, result) {
+            if (node.children && node.children.length > 0) {
+                result.push(node);
+                node.children.forEach(function(child) {
+                    getExpanded(child, result);
+                })
+            }
+            return result;
+        }
 
         portalModel.getPageTree().then(function (pageTree) {
             $scope.pageTree = pageTree;
+            $scope.expandedNodes = getExpanded(pageTree[0], []);
         });
 
         $scope.setCurrentItem = function (item) {
