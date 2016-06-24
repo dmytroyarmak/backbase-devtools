@@ -115,4 +115,10 @@ angular.module('devTool', ['treeControl'])
                 labelSelected: "a8"
             }
         };
+
+        $scope.expanded = {
+            details: true,
+            preferences: false,
+            tags: false
+        };
     });
