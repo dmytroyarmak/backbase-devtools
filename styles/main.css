@@ -1,0 +1,13 @@
+.dev-app {
+    display: flex;
+}
+
+.tree {
+    flex: 3;
+    border: solid 1px black;
+}
+
+.settings {
+    flex: 1;
+    border: solid 1px red;
+}

@@ -1,5 +1,5 @@
 angular.module('devTool', ['treeControl'])
-    .factory('portalModel', function($q) {
+    .factory('portalModel', function ($q) {
         var GET_PAGE_TREE_EXPRESSION = `
             function getComponentsTree(node) {
                 return {
@@ -8,7 +8,6 @@ angular.module('devTool', ['treeControl'])
                     parent: node.parentItemName ,
                     contextItemName: node.contextItemName,
                     extendedItemName: node.extendedItemName,
-
                     preferences: node.preferences.array.map(formatItemPreference),
                     tags: node.tags.map(formatItemTag),
                     children: node.childNodes.map(getComponentsTree)
@@ -43,8 +42,8 @@ angular.module('devTool', ['treeControl'])
         /////////
 
         function getPageTree() {
-            return $q(function(resolve, reject) {
-                chrome.devtools.inspectedWindow.eval(GET_PAGE_TREE_EXPRESSION, function(result, isException) {
+            return $q(function (resolve, reject) {
+                chrome.devtools.inspectedWindow.eval(GET_PAGE_TREE_EXPRESSION, function (result, isException) {
                     if (isException) {
                         reject(result)
                     } else {
@@ -58,11 +57,12 @@ angular.module('devTool', ['treeControl'])
         $scope.currentItem = null;
         $scope.pageTree = [];
 
-        portalModel.getPageTree().then(function(pageTree) {
+        portalModel.getPageTree().then(function (pageTree) {
             $scope.pageTree = pageTree;
         });
 
-        $scope.setCurrentItem = function(item) {
+        $scope.setCurrentItem = function (item) {
+            console.log('Item....', item);
             $scope.currentItem = item;
         };
 
