@@ -15,7 +15,7 @@
                  tree-model="pageTree"
                  options="treeOptions"
                  on-selection="showItemPreferences(node)">
-        {{node.type}}: {{node.name}}
+        {{node.type}}: {{node.name}} <button ng-click="selectElement(node)"> elements </button>
     </treecontrol>
  </div>
 </body>

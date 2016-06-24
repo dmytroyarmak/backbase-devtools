@@ -66,6 +66,10 @@ angular.module('devTool', ['treeControl'])
             $scope.currentItem = item;
         };
 
+        $scope.selectElement = function(item) {
+            chrome.devtools.inspectedWindow.eval("inspect(document.querySelector('[data-pid=\""+item.name+"\"]'))")
+        };
+
         $scope.treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,
