@@ -1,6 +1,12 @@
 console.log('devtools.js');
 
+var backbasePanel;
+
 chrome.devtools.panels.create('Backbase', 'backbase.png', 'panel.html', function(panel) {
+    panel.onShown.addListener(function (extPanelWindow) {
+        backbasePanel = extPanelWindow
+    });
+
     panel.onHidden.addListener(function() {
         chrome.devtools.inspectedWindow.eval(`
                 document.body.removeChild(document.getElementById('ivo-bobul'));
@@ -55,6 +61,19 @@ chrome.devtools.panels.elements.createSidebarPane('Backbase Item Model', functio
     }
     update();
 
-    chrome.devtools.panels.elements.onSelectionChanged.addListener(update);
+    chrome.devtools.panels.elements.onSelectionChanged.addListener(function(el) {
+        update();
+        if (backbasePanel) {
+            chrome.devtools.inspectedWindow.eval(`$0.closest("[data-pid]") && $0.closest("[data-pid]").attributes['data-pid'].value`, function(closestBBItem) {
+                console.log('closestBBItem', closestBBItem);
+                if (closestBBItem) {
+                    backbasePanel.postMessage({
+                        selectNode: closestBBItem
+                    }, '*');
+                }
+            });
+        }
+
+    });
 
 });

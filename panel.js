@@ -152,4 +152,29 @@ angular.module('devTool', ['treeControl'])
             preferences: false,
             tags: false
         };
+
+        window.addEventListener('message', function(event) {
+            if (event && event.data.selectNode) {
+                var newNode = (function findInTree(node) {
+                    if (node.name === event.data.selectNode) {
+                        return node;
+                    } else {
+                        for (var i = 0; i < node.children.length; i++) {
+                            var result = findInTree(node.children[i]);
+                            if (result) {
+                                return result;
+                            }
+                        }
+                    }
+                }($scope.pageTree[0]));
+
+                console.log('newNode', newNode);
+
+                if (newNode) {
+                    $scope.$apply(function() {
+                        $scope.currentItem = newNode;
+                    });
+                }
+            }
+        });
     });
