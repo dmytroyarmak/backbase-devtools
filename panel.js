@@ -75,16 +75,14 @@ angular.module('devTool', ['treeControl'])
         $scope.setCurrentItem = function (item) {
             $scope.currentItem = item;
             $scope.highlightElement(item);
+            $scope.scrollToElement(item);
         };
 
         $scope.selectElement = function (item) {
             chrome.devtools.inspectedWindow.eval("inspect(document.querySelector('[data-pid=\"" + item.name + "\"]'))")
         };
 
-        $scope.scrollToElement = function (item, $event) {
-            if (item === $scope.currentItem) {
-                $event.stopPropagation();
-            }
+        $scope.scrollToElement = function (item) {
             chrome.devtools.inspectedWindow.eval(`
                 (function() {
                     var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect();
@@ -129,6 +127,7 @@ angular.module('devTool', ['treeControl'])
                 newEl.style['position'] = 'absolute';
                 newEl.style['background'] = 'red';
                 newEl.style['opacity'] = '0.3';
+                newEl.style['pointer-events'] = 'none'
                 document.body.appendChild(newEl);
             `)
         };

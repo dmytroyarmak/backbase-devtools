@@ -1,10 +1,10 @@
 <html>
 <head>
-    <script type="text/javascript" src="vendor/xmlToJSON.js"></script>
     <script type="text/javascript" src="vendor/angular.js"></script>
     <script type="text/javascript" src="vendor/angular-tree-control.js"></script>
 
     <script src="panel.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/tree-control.css">
 </head>
@@ -17,8 +17,15 @@
                      options="treeOptions"
                      on-selection="setCurrentItem(node)"
                      ng-mouseleave="highlightElement(currentItem)">
-            <span ng-mouseover="highlightElement(node)">{{node.type}}: {{node.name}} </span>
-            <button ng-click="scrollToElement(node, $event)"> scroll </button><button ng-click="selectElement(node)"> elements </button>
+            <span class="item-tree-node">
+                <span ng-mouseover="highlightElement(node)">
+                    <span class="item-tree-node-type">{{node.type}}</span>: <span class="item-tree-node-name">{{node.name}}</span>
+                </span>
+
+                <span class="item-tree-node-buttons">
+                    <button ng-click="selectElement(node)"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                </span>
+            </span>
         </treecontrol>
     </div>
     <div class="settings" ng-if="currentItem">

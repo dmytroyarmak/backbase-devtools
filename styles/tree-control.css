@@ -45,38 +45,24 @@ treecontrol li .tree-unselectable {
     cursor: not-allowed;
 }
 
-treecontrol.tree-classic li.tree-expanded i.tree-branch-head {
-    padding: 1px 10px;
-    background: url("../images/folder.png") no-repeat;
+treecontrol.tree-light li.tree-expanded i.tree-branch-head:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f147";
 }
 
-treecontrol.tree-classic li.tree-collapsed i.tree-branch-head {
-    padding: 1px 10px;
-    background: url("../images/folder-closed.png") no-repeat;
-}
-
-treecontrol.tree-classic li.tree-leaf i.tree-leaf-head {
-    padding: 1px 10px;
-    background: url("../images/file.png") no-repeat;
-}
-
-treecontrol.tree-classic li .tree-selected {
-    background-color: #aaddff;
-    font-weight: bold;
-}
-
-treecontrol.tree-classic li .tree-unselectable {
-    color: #ddd;
-}
-
-treecontrol.tree-light li.tree-expanded i.tree-branch-head {
-    padding: 1px 10px;
-    background: url("../images/node-opened-2.png") no-repeat;
-}
-
-treecontrol.tree-light li.tree-collapsed i.tree-branch-head {
-    padding: 1px 10px;
-    background: url("../images/node-closed-2.png") no-repeat;
+treecontrol.tree-light li.tree-collapsed i.tree-branch-head:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f196";
 }
 
 treecontrol.tree-light li.tree-leaf i.tree-leaf-head {
@@ -90,33 +76,5 @@ treecontrol.tree-light li .tree-selected {
 }
 
 treecontrol.tree-light li .tree-unselectable {
-    color: #ddd;
-}
-
-treecontrol.tree-dark li.tree-expanded i.tree-branch-head {
-    padding: 1px 10px;
-    background: url("../images/node-opened-light.png") no-repeat;
-}
-
-treecontrol.tree-dark li.tree-collapsed i.tree-branch-head {
-    padding: 1px 10px;
-    background: url("../images/node-closed-light.png") no-repeat;
-}
-
-treecontrol.tree-dark li.tree-leaf i.tree-leaf-head {
-    padding: 1px 10px;
-    width: 16px; height: 16px;
-    background: none no-repeat;
-}
-
-treecontrol.tree-dark li .tree-selected {
-    font-weight: bold;
-}
-
-treecontrol.tree-dark li .tree-unselectable {
-    color: #777;
-}
-
-treecontrol.tree-dark {
     color: #ddd;
 }

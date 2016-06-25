@@ -26,7 +26,7 @@ body, html {
 
 .settings {
     border-left: 1px solid #303942;
-    width: 300px;
+    width: 400px;
     flex: 0 0 auto;
 }
 
@@ -60,6 +60,28 @@ body, html {
     white-space: pre-wrap;
     word-break: break-all;
     margin-top: 1px;
+}
+
+.item-tree-node-buttons {
+    display: none;
+}
+
+.item-tree-node:hover .item-tree-node-buttons {
+    display: inline;
+}
+
+.item-tree-node-name {
+    font-family: Menlo, monospace;
+}
+
+.item-tree-node-type:after {
+    content: ">";
+}
+.item-tree-node-type:before {
+    content: "<";
+}
+.item-tree-node-type {
+    color: #aaa;
 }
 
 /*
