@@ -9,39 +9,49 @@ chrome.devtools.panels.create('Backbase', 'backbase.png', 'panel.html', function
 });
 
 chrome.devtools.panels.elements.createSidebarPane('Backbase Item Model', function(sidebar) {
+    var GET_ITEM_MODEL_EXPRESSION = `
+        (function() {
+            function getComponentsTree(node) {
+                return {
+                    name: node.name,
+                    type: node.tagName,
+                    parent: node.parentItemName,
+                    contextItemName: node.contextItemName,
+                    extendedItemName: node.extendedItemName,
+                    preferences: node.preferences.array.map(formatItemPreference),
+                    tags: node.tags.map(formatItemTag)
+                };
+            }
 
-    var getInfo = function (){
-        var propertyList = ['Description','TemplateName','templateUrl','title','version'];
-        var dataList = ['contextItemName','extendedItemName','name','securityProfile'];
-        var elm, pref, key;
-        var obj = {};
-        var errorMSg = {message : 'This element do not have a widget content'};
-        obj.preference = {};
-
-        if ($0.closest("[data-pid]") == null) {
-            errorMSg;
-        } else {
-            elm = b$.portal.portalModel.all[$0.closest("[data-pid]").attributes['data-pid'].value];
-            pref = elm.attributes;
-
-            // get preference
-            for (key in pref) {
-                if (propertyList.indexOf(pref[key].localName) > -1 ){
-                    obj.preference[pref[key].localName] = pref[key].nodeValue;
+            function formatItemPreference(preference) {
+                return {
+                    name: preference.name,
+                    label: preference.label,
+                    value: preference.value,
+                    viewHint: preference.viewHint
                 }
             }
-            //get other information
-            for (key in elm) {
-                if (dataList.indexOf(key) > -1 ){
-                    obj[key] = elm[key];
+
+            function formatItemTag(tag) {
+                return {
+                    name: tag.value,
+                    type: tag.type
                 }
             }
-            obj;
-        }
-    };
+
+            var bbItemNode = $0.closest("[data-pid]");
+            if (bbItemNode) {
+                return getComponentsTree(b$.portal.portalModel.all[bbItemNode.attributes['data-pid'].value]);
+            } else {
+                return {
+                    message: "This element doesn't have associated Backbase Item"
+                };
+            }
+        }());
+    `;
 
     function update() {
-        sidebar.setExpression(getInfo.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1]);
+        sidebar.setExpression(GET_ITEM_MODEL_EXPRESSION);
     }
     update();
 
