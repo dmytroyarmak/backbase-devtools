@@ -28,9 +28,13 @@ treecontrol li {
 }
 
 treecontrol li.tree-expanded i.tree-leaf-head, treecontrol li.tree-collapsed i.tree-leaf-head {display:none;}
-treecontrol li.tree-expanded i.tree-branch-head, treecontrol li.tree-collapsed i.tree-branch-head {display:inline;}
+treecontrol li.tree-expanded i.tree-branch-head, treecontrol li.tree-collapsed i.tree-branch-head {
+    display: block;
+    float: left;
+    padding: 4px;
+}
 treecontrol li.tree-leaf i.tree-branch-head {display:none;}
-treecontrol li.tree-leaf i.tree-leaf-head {display:inline;}
+treecontrol li.tree-leaf i.tree-leaf-head {dispaly: block; float: left;}
 
 treecontrol li i.tree-branch-head {
     cursor: pointer;
@@ -38,7 +42,11 @@ treecontrol li i.tree-branch-head {
 
 treecontrol li .tree-label {
     cursor: pointer;
-    display: inline;
+    display: block;
+}
+
+treecontrol li .tree-label:hover {
+    background-color: rgba(56, 121, 217, 0.1);
 }
 
 treecontrol li .tree-unselectable {
