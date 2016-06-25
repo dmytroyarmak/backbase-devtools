@@ -87,7 +87,7 @@ angular.module('devTool', ['treeControl'])
                 (function() {
                     var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect();
                     var startPosition = document.body.scrollTop;
-                    var endPosition = Math.min(document.body.scrollHeight, Math.max(elementPostion.top + document.body.scrollTop, 0));
+                    var endPosition = Math.min(document.body.scrollHeight - window.innerHeight, Math.max(elementPostion.top + document.body.scrollTop, 0));
                     if (startPosition === endPosition) return;
                     var difference = (endPosition - startPosition) / 10;
 
@@ -100,7 +100,7 @@ angular.module('devTool', ['treeControl'])
                         } else {
                             difference = Math.sign(difference) * 3;
                         }
-                        if (Math.sign(difference) * (endPosition - document.body.scrollTop + difference) < Math.abs(difference)) {
+                        if (Math.sign(difference) * (endPosition - document.body.scrollTop + difference) <= Math.abs(difference)) {
                             document.body.scrollTop = endPosition;
                         } else {
                             document.body.scrollTop = document.body.scrollTop + difference;
