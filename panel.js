@@ -86,8 +86,30 @@ angular.module('devTool', ['treeControl'])
                 $event.stopPropagation();
             }
             chrome.devtools.inspectedWindow.eval(`
-                var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect();
-                window.scroll(0, elementPostion.top + document.body.scrollTop);
+                (function() {
+                    var elementPostion = document.querySelector('[data-pid="${item.name}"]').getBoundingClientRect();
+                    var startPosition = document.body.scrollTop;
+                    var endPosition = Math.min(document.body.scrollHeight, Math.max(elementPostion.top + document.body.scrollTop, 0));
+                    if (startPosition === endPosition) return;
+                    var difference = (endPosition - startPosition) / 10;
+
+                    (function onAnimationFrame() {
+                        if (document.body.scrollTop === 0 && difference < 0) return;
+                        if (document.body.scrollTop === document.body.scrollHeight && difference > 0) return;
+
+                        if (Math.abs(difference) > 3) {
+                            difference = difference * 0.95;
+                        } else {
+                            difference = Math.sign(difference) * 3;
+                        }
+                        if (Math.sign(difference) * (endPosition - document.body.scrollTop + difference) < Math.abs(difference)) {
+                            document.body.scrollTop = endPosition;
+                        } else {
+                            document.body.scrollTop = document.body.scrollTop + difference;
+                            requestAnimationFrame(onAnimationFrame);
+                        }
+                    }());
+                }());
             `);
         };
 
