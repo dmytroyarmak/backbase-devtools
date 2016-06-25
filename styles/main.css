@@ -13,6 +13,39 @@ body, html {
     display: flex;
 }
 
+.filter-input-field {
+    -webkit-appearance: none;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 2px;
+    padding: 1px 3px 0;
+    margin: 0 0 0 1px;
+    width: 253px;
+    height: 20px;
+    margin-left: 5px;
+    line-height: 17px;
+}
+
+.panel-btn {
+    height: 21px;
+    margin-left: 2px;
+}
+
+.filter-bar {
+    background-color: #f3f3f3;
+    padding: 4px 0 4px 0;
+    flex: none;
+    flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 1px solid #dadada;
+    border-top: 1px solid #dadada;
+}
+.hbox {
+    display: flex;
+    flex-direction: row !important;
+    position: relative;
+}
+
+
 .tree,
 .settings {
     height: 100vh;
@@ -20,7 +53,6 @@ body, html {
 }
 
 .tree {
-    padding: 4px;
     flex: 1 1 auto;
 }
 

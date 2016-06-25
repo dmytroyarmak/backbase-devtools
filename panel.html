@@ -11,12 +11,19 @@
 <body ng-app="devTool">
 <div class="dev-app" ng-controller="ElementsCtrl">
     <div class="tree">
+        <div class="widget hbox filter-bar">
+            <input type="text" class="filter-input-field" placeholder="Filter" ng-model="predicate"/>
+            <button class="panel-btn" ng-click="collapseAll()">Collapse All</button>
+            <button class="panel-btn" ng-click="expandAll()">Expand All</button>
+        </div>
+
         <treecontrol class="tree-light"
                      expanded-nodes="expandedNodes"
                      tree-model="pageTree"
                      options="treeOptions"
                      selected-node="currentItem"
                      on-selection="setCurrentItem(node)"
+                     filter-expression="predicate"
                      ng-mouseleave="highlightElement(currentItem)">
             <span class="item-tree-node">
                 <span ng-mouseover="highlightElement(node)">

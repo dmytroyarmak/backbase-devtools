@@ -55,7 +55,7 @@ angular.module('devTool', ['treeControl'])
         $scope.currentItem = null;
         $scope.pageTree = [];
         $scope.expandedNodes = [];
-
+        $scope.predicate = '';
 
         function getExpanded(node, result) {
             if (node.children && node.children.length > 0) {
@@ -71,6 +71,14 @@ angular.module('devTool', ['treeControl'])
             $scope.pageTree = pageTree;
             $scope.expandedNodes = getExpanded(pageTree[0], []);
         });
+
+        $scope.expandAll = function() {
+            $scope.expandedNodes = getExpanded($scope.pageTree[0], []);
+        };
+
+        $scope.collapseAll = function() {
+            $scope.expandedNodes = [];
+        };
 
         $scope.setCurrentItem = function (item) {
             $scope.currentItem = item;
